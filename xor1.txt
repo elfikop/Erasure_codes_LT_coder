@@ -1,0 +1,86 @@
+podaj dlugosc pakietu
+10
+pakiet nr 1. Litwo, Ojc
+pakiet nr 2. zyzno moja
+pakiet nr 3. ! ty jeste
+pakiet nr 4. s jak zdro
+pakiet nr 5. wie;
+Ile
+pakiet nr 6. cie trzeba
+pakiet nr 7.  cenic, te
+pakiet nr 8. n tylko si
+pakiet nr 9. e dowie,
+
+pakiet nr 10. Kto cie st
+pakiet nr 11. racil. Dzi
+pakiet nr 12. s pieknosc
+pakiet nr 13.  twa w cal
+pakiet nr 14. ej ozdobie
+pakiet nr 15.
+Widze i
+pakiet nr 16. opisuje, b
+pakiet nr 17. o tesknie
+pakiet nr 18. po tobie.
+podaj tolerancje na bledy, wartosci nizsze powoduja wieksza niezaowdnosc(np.0,01), jednoczesnie wieksza ilosc stopni 1 symbolu kodu
+
+to są pierwsze znaki każdego z wylosowanych symboli wejsciowych  w pierwszym symbolu kodu zapisanym w pliku example txt  oraz ich wartości ascii
+18,p 112      o 111
+14,e 101      j 106
+1, L 76       i 105
+5, w 119      i 105
+8, n 110      spacja 32
+7, spacja 32  c 99
+9, e 101      spacja 32
+xor:  =5         =102
+
+1 symbol kodu wypisany przez program odczytujacy zakodowane znaki:   
+♣ 5
+f 102
+d 100
+/ 47
+♣ 5
+A 65
+I 73
+ 8
+B 66
+  32
+ 7
+↕ 18
+♫ 14
+☺ 1
+♣ 5
+ 8
+ 7
+         9
+☻ 2
+ 7
+♣ 5
+; 59    
+to implikuje, iż operacja xor działa poprawnie dla xorowania odpowiednich pozycji odpowiednich symboli wejściowych.
+2 symbol kodu wygląda następująco: 
+N 78
+P 80
+↔ 29
+
+ 10
+U 85
+  0
+  0
+_ 95
+T 84
+ 7
+☻ 2
+♥ 3
+► 16
+         9
+ 8
+♦ 4
+; 59
+jak widać na pozyvji 6 i 7 mamy zera a to znaczy, że zksorowane zostały te same liczby/znaki, podejrzyjmy zatem pozycję 6 i 7 w 
+symbolach wejsciowych nr 3 i 16:
+
+            
+pakiet nr 3. ! ty jeste
+pakiet nr16. opisuje, b
+usunąłem spacje po "nr", aby było to lepiej widoczne, w obydwu przypadkach w symbolu kodu o stopniu dwa na pozycji 6 i 7 xorowaliśmy te same liczby.
+szukanie i analizowanie zer w symbolach kodu, było dla mnie na początku początkowym wyznacznikiem sukcesu operacji, tym najbardziej widocznym.

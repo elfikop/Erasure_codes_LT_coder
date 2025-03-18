@@ -1,0 +1,116 @@
+podaj dlugosc pakietu
+4
+pakiet nr 1. Dane
+pakiet nr 2.  sa
+pakiet nr 3. przy
+pakiet nr 4. klad
+pakiet nr 5. owe
+podaj tolerancje na bledy, wartosci nizsze powoduja wieksza niezaowdnosc(np.0,01), jednoczesnie wieksza ilosc stopni 1 symbolu kodu
+ Gdy wypisze tablice prawdopodobienstw, nacisnij znak z klawiatury a pozniej enter aby kontynuowac
+0.1
+podaj stala C wieksza od zera, najlepiej rowna 1: 1
+
+pr kom 1: 0.2
+komorka robust-soliton 1.94951
+komorka robust-soliton 0.5
+komorka robust-soliton 0.166667
+komorka robust-soliton 0.0833333
+komorka robust-soliton 0.05
+suma robust soliton: 2.74951
+pr komorki robust-soliton:1. 0.709039
+pr komorki robust-soliton:2. 0.181851
+pr komorki robust-soliton:3. 0.0606169
+pr komorki robust-soliton:4. 0.0303084
+pr komorki robust-soliton:5. 0.0181851
+koncowa tablica od indeksu 2: 0.89089
+koncowa tablica od indeksu 2: 0.951507
+koncowa tablica od indeksu 2: 0.981815
+koncowa tablica od indeksu 2: 1
+d
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 1
+wartosci tablicy zawierajacej sume kontrolna: 8 ; 7 ; 3 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. D 68 2. a 97 3. n 110 4. e 101 5. ☺ 1 6. ☺ 1 7. 8 8.  7 9. ♥ 3
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 4
+wartosci tablicy zawierajacej sume kontrolna: 7 ; 1 ; 4 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. k 107 2. l 108 3. a 97 4. d 100 5. ☺ 1 6. ♦ 4 7.  7 8. ☺ 1 9. ♦ 4
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 2
+wartosci tablicy zawierajacej sume kontrolna: 9 ; 7 ; 2 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1.   32 2. s 115 3. a 97 4.   32 5. ☺ 1 6. ☻ 2 7.       9 8.  7 9. ☻ 2
+=======================================================
+Stopie┼ä symbolu kodu: 2
+Sasiad symbolu kodu: 1
+Sasiad symbolu kodu: 5
+
+wartosci tablicy zawierajacej sume kontrolna: 5 ; 8 ; 1 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 7
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. + 43 2. ▬ 22 3. ♂ 11 4. e 101 5. ☻ 2 6. ☺ 1 7. ♣ 5 8. ♣ 5 9. 8 10. ☺ 1
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 4
+wartosci tablicy zawierajacej sume kontrolna: 7 ; 1 ; 4 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. k 107 2. l 108 3. a 97 4. d 100 5. ☺ 1 6. ♦ 4 7.  7 8. ☺ 1 9. ♦ 4
+=======================================================
+Stopie┼ä symbolu kodu: 5
+Sasiad symbolu kodu: 2
+Sasiad symbolu kodu: 3
+
+Sasiad symbolu kodu: 1
+
+Sasiad symbolu kodu: 5
+
+Sasiad symbolu kodu: 4
+
+wartosci tablicy zawierajacej sume kontrolna: 0 ; 6 ; 3 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 10
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. ► 16 2. { 123 3. q 113 4. X 88 5. ♣ 5 6. ☻ 2 7. ♥ 3 8. ☺ 1 9. ♣ 5 10. ♦ 4 11.   0 12. ♠ 6 13. ♥ 3
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 5
+wartosci tablicy zawierajacej sume kontrolna: 7 ; 3 ; 3 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. o 111 2. w 119 3. e 101 4.   0 5. ☺ 1 6. ♣ 5 7.  7 8. ♥ 3 9. ♥ 3
+=======================================================
+Stopie┼ä symbolu kodu: 2
+Sasiad symbolu kodu: 4
+Sasiad symbolu kodu: 2
+
+wartosci tablicy zawierajacej sume kontrolna: 2 ; 8 ; 1 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 7
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. K 75 2. ▼ 31 3.   0 4. D 68 5. ☻ 2 6. ♦ 4 7. ☻ 2 8. ☻ 2 9. 8 10. ☺ 1
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 2
+wartosci tablicy zawierajacej sume kontrolna: 9 ; 7 ; 2 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1.   32 2. s 115 3. a 97 4.   32 5. ☺ 1 6. ☻ 2 7.       9 8.  7 9. ☻ 2
+=======================================================
+Stopie┼ä symbolu kodu: 1
+Sasiad symbolu kodu: 5
+wartosci tablicy zawierajacej sume kontrolna: 7 ; 3 ; 3 ;
+dlugosc 3( zksorowany pakiet + indeksy ) 6
+dlugosc 4 ( suma kontrolna w charach ) 3
+wypisuje wynikowy pakiet 1. o 111 2. w 119 3. e 101 4.   0 5. ☺ 1 6. ♣ 5 7.  7 8. ♥ 3 9. ♥ 3
+liczba jedynek wynosi: 7
+liczba operacji wynosi: 10
+
+Process returned 0 (0x0)   execution time : 7.031 s
+Press any key to continue.
