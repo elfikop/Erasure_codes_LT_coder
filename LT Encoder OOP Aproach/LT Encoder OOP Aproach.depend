@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1770893123 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt encoder oop aproach\main.cpp
+	"LT_Encoder.h"
+
+1770893502 c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt encoder oop aproach\include\lt_encoder.h
+	<iostream>
+	<fstream>
+	<vector>
+	<random>
+
+1770893114 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt encoder oop aproach\src\lt_encoder.cpp
+	"LT_Encoder.h"
+	<cstring>
+	<cmath>
+	<algorithm>
+	<ctime>
+
