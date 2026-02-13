@@ -27,6 +27,7 @@ class LT_Decoder
     int liczbaPakietow;
     int licznika; //dlugosc pakietu
     int kontrol;
+    int checksumSize;
 
     // Dane
     std::ifstream file;
@@ -44,6 +45,7 @@ class LT_Decoder
     int charToInt(unsigned char* tab, int lenght );
     void signsToChars(int ln, unsigned char* &pointer);
     void loadNextEncodedSymbol(int counter);
+    void calcsum(int counter);
 
 };
 

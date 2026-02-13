@@ -77,6 +77,38 @@ int LT_Decoder::charToInt(unsigned char* tab, int lenght ){
         }
         return checkSum;
     }
+void LT_Decoder::calcsum(int counter){// funkcja obliczajaca sume kontrolna symbolu kodu jako int
+    int suma=0;// suma kontrolna zakodowanego symbolu
+    for(int i=0; i<payloadLength;i++){
+    suma+=inputs[counter][i];
+    }
+    suma+=int(degres[counter]);
+    for(int i=0; i<int(degres[counter]);i++){
+    suma+=neighbours[counter][i];
+    }
+    if (suma == 0) {
+        checksumSize = 1;
+    } else {
+        checksumSize = 0;
+        int tempSuma = suma;
+        while (tempSuma > 0) {
+            tempSuma /= 10;
+            checksumSize++;
+        }
+    }
+    checkSum(suma,counter);
+}
+void LT_Decoder::checkSum(int suma, int counter){// funkcja obliczajaca sume kontrolna symbolu kodu jako int
+    signsToChars(checksumSize, sums[counter]);
+    if(suma != charToInt(sums[counter], checksumSize)) {
+        delete[] inputs[counter];
+        delete[] neighbours[counter];
+        delete[] sums[counter];
+        inputs[counter] = nullptr;
+        degres[counter] = 0;
+    } else {
+    }
+}
 
 
 LT_Decoder::~LT_Decoder()

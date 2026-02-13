@@ -65,12 +65,12 @@ void test_loadNextEncodedSymbol(){
     decoder.wczytajPakiety(testFileName); // Otwiera i ustawia kursor za "99;"
     decoder.loadNextEncodedSymbol(0);
 
-    bool ok = true;
-    if (decoder.inputs[0][0] != 'X' || decoder.inputs[0][2] != 'Z') ok = false;
+    bool check = true;
+    if (decoder.inputs[0][0] != 'X' || decoder.inputs[0][2] != 'Z') check = false;
     if (decoder.degres[0] != 2) ok = false;
-    if (decoder.neighbours[0][0] != 10 || decoder.neighbours[0][1] != 11) ok = false;
+    if (decoder.neighbours[0][0] != 10 || decoder.neighbours[0][1] != 11) check = false;
 
-    if (ok) {
+    if (check) {
         cout << "Test loadNextEncodedSymbol: +" << endl;
     } else {
         cout << "Test loadNextEncodedSymbol: !!! Blad wczytywania struktury symbolu" << endl;
