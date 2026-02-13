@@ -2,8 +2,8 @@
 
 using namespace std;
 
-int main()
+int te()
 {
-    cout << "Hello world!" << endl;
+    cout << " world!" << endl;
     return 0;
 }
