@@ -50,6 +50,32 @@ void test_signsToChars() {
     }
     delete[] ptr;
 }
+void test_loadNextEncodedSymbol(){
+    string testFileName = "test_symbol.txt";
+    ofstream outFile(testFileName, ios::binary);
+
+    outFile << "1;99;";
+    outFile << "XYZ";       // Payload (payloadLength = 3)
+    outFile << (char)2;     // Stopieñ (degree) = 2
+    outFile << (char)10;    // S¹siad 1
+    outFile << (char)11;    // S¹siad 2
+    outFile.close();
+
+    LT_Decoder decoder;
+    decoder.wczytajPakiety(testFileName); // Otwiera i ustawia kursor za "99;"
+    decoder.loadNextEncodedSymbol(0);
+
+    bool ok = true;
+    if (decoder.inputs[0][0] != 'X' || decoder.inputs[0][2] != 'Z') ok = false;
+    if (decoder.degres[0] != 2) ok = false;
+    if (decoder.neighbours[0][0] != 10 || decoder.neighbours[0][1] != 11) ok = false;
+
+    if (ok) {
+        cout << "Test loadNextEncodedSymbol: +" << endl;
+    } else {
+        cout << "Test loadNextEncodedSymbol: !!! Blad wczytywania struktury symbolu" << endl;
+    }
+}
 
 
 int main()
@@ -58,6 +84,7 @@ int main()
     test_charToInt();
     test_wczytajPakiety();
     test_signsToChars();
+    test_loadNextEncodedSymbol();
     cout << "koniec" << endl;
     return 0;
 }

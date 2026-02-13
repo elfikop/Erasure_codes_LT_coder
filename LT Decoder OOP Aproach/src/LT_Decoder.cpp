@@ -1,6 +1,7 @@
 #include "LT_Decoder.h"
 #include <iostream>
 
+
 LT_Decoder::LT_Decoder()
     :inputs(nullptr), degres(nullptr),decodedpakiet(nullptr),tmpProcessedPacket(nullptr),sums(nullptr), startingDegres(nullptr), neighbours(nullptr)
      {
@@ -12,14 +13,14 @@ LT_Decoder::LT_Decoder()
     int kontrol;
 
     // Dane
-    unsigned char* tmpProcessedPacket; //tablica 1d
+    unsigned char* tmpProcessedPacket;
     unsigned char** inputs;
     unsigned char* degres;
     unsigned char* startingDegres;
     unsigned char** neighbours;
-    unsigned char* sums;
+    unsigned char** sums;
     unsigned char** decodedpakiet;
-    void deleteMem();
+    const int payloadLength = 3;
     */
 void LT_Decoder::wczytajPakiety(const std::string& filename){
     file.open(filename,std::ios::in|std::ios::binary);
@@ -53,8 +54,11 @@ void LT_Decoder::wczytajPakiety(const std::string& filename){
     }
 }
 
-void LT_Decoder::wczytajKolejnyPakiet(const std::string& filename){
-
+void LT_Decoder::loadNextEncodedSymbol(int counter){
+    signsToChars(payloadLength,inputs[counter]);
+    degres[counter]=file.get();
+    startingDegres[counter]=degres[counter];
+    signsToChars(int(degres[counter]), neighbours[counter]);
     }
 void LT_Decoder::signsToChars(int ln, unsigned char* &pointer){
         pointer = new unsigned char[ln];
