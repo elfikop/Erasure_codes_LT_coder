@@ -36,28 +36,25 @@ class LT_Decoder
     unsigned char** decodedpakiet;
     const int payloadLength = 3;
 
-    /**
-    * @brief Opens the encoded file, sets the LT_Encoder::liczbaPakietow atribute
+    /** \brief Opens the encoded file, sets the LT_Encoder::liczbaPakietow atribute
     * based on the first 1 byte packet written in the file and LT_Encoder.kontrol based on the third packet.
     * initializes memory dynamically with liczbaPakietow size for all array members in the class.
-    * @param filename is the name of the encoded file to be processed
+    * \param filename is the name of the encoded file to be processed
     */
     void wczytajPakiety(const std::string& filename);
 
-     /**
-    * @brief Reconstructs the int value encoded in the array rows with the following rules:
+     /** \brief Reconstructs the int value encoded in the array rows with the following rules:
     * array values: "'2' '2' '4' '6'" equals int value: 2246
-    * @param tab pointer to the array containing char digits, for instance
-    * @param lenght number of char digits to be converted to int
+    * \param tab pointer to the array containing char digits, for instance
+    * \param lenght number of char digits to be converted to int
     */
     int charToInt(unsigned char* tab, int lenght );
 
-    /**
-     * @brief Reads a specified number of bytes from the file and allocates memory.
-     * * Reads 'ln' bytes from the file stream opened in wczytajPakiety(),
+    /** \brief Reads a specified number of bytes from the file and allocates memory.
+     * Reads 'ln' bytes from the file stream opened in wczytajPakiety(),
      * allocates a new array, and assigns its address to 'pointer'.
-     * * @param ln The number of bytes to read from the file.
-     * @param pointer Reference to the pointer that will hold the allocated memory.
+     * \param ln The number of bytes to read from the file.
+     * \param pointer Reference to the pointer that will hold the allocated memory.
      */
     void signsToChars(int ln, unsigned char* &pointer);
 
