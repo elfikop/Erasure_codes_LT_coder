@@ -17,8 +17,11 @@ This newly recovered block is then used to reduce the degree of other buffered s
 This cascading effect continues until all original source blocks are recovered.
 
 Memory management in the decoder is handled through dynamic allocation of two-dimensional pointer arrays to store payloads, neighbor indices, and checksums.
-The signsToChars method facilitates safe binary reading from the input stream directly into these allocated buffers.
 Each symbol processed undergoes a verification step where the numerical sum of the payload, degree, and neighbors is compared against the stored checksum value to filter out corrupted packets before they enter the decoding graph.
 If the checksum is not correct, the data decoder shall skip bytes read from file untill it reaches ';' sign which indicates the beggining of another encoding symbol.
 
-The final stage of the project after succsesfull decoding of an image is going to be to encode data, write it down on a compact disk, damage it by some sharp tools and then try to restore the original and decode them! 
+Ideas to test the codes in practice:
+- The final stage of the project after succsesfull decoding of an image is going to be to encode data, write it down on a compact disk, damage it by some sharp tools and then try to restore the original and decode them!
+- Second idea is to modify the encoder and decoder clases to write and read to a serial port of the computer instead of the encoded file with a sufficient frequency, the idea would be to then transmit and catch the data via arduino with nrf24l01 module with
+  the insuficient db settings for the distance between transmiter and the receiver ( some packets are lost some arent ). Transmit and decode the image and calculate the number of encoded symbols that were neeeded to decode the image and the num of encoded symbols sent.
+  to compare LT codes with another transmition ways we can set the nrf24l01 settings to try to resend the packet untill the receiver acktknowledges the packet was received. Sending the packets with the same frequency and counting everything up(amount of packets sent) and comparing them to lt codes transmision would give us a nice comparison of reception overhead in both lt codes and standard transmision.
