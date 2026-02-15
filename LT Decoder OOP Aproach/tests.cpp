@@ -66,6 +66,7 @@ void test_loadNextEncodedSymbol(){
     LT_Decoder decoder;
 
     decoder.wczytajPakiety(testFileName);
+
     decoder.loadNextEncodedSymbol(0);
 
     bool check = true;

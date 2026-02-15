@@ -6,22 +6,7 @@ LT_Decoder::LT_Decoder()
     :inputs(nullptr), degres(nullptr),decodedpakiet(nullptr),tmpProcessedPacket(nullptr),sums(nullptr), startingDegres(nullptr), neighbours(nullptr)
      {
 }
-/*private:
-    int pakietlenght;
-    int liczbaPakietow;
-    int licznika; //dlugosc pakietu
-    int kontrol;
 
-    // Dane
-    unsigned char* tmpProcessedPacket;
-    unsigned char** inputs;
-    unsigned char* degres;
-    unsigned char* startingDegres;
-    unsigned char** neighbours;
-    unsigned char** sums;
-    unsigned char** decodedpakiet;
-    const int payloadLength = 3;
-    */
 void LT_Decoder::wczytajPakiety(const std::string& filename){
     file.open(filename,std::ios::in|std::ios::binary);
     if(!file){std::cout<<"Blad pliku!";return;}
@@ -38,7 +23,7 @@ void LT_Decoder::wczytajPakiety(const std::string& filename){
     startingDegres = new unsigned char[liczbaPakietow*300];
     neighbours = new unsigned char*[liczbaPakietow*300];
     sums = new unsigned char*[liczbaPakietow*300];
-    decodedpakiet = new unsigned char*[liczbaPakietow];
+    decodedpacket = new unsigned char*[liczbaPakietow];
 
     for(int i=0; i<liczbaPakietow*300; i++) {
         inputs[i] = nullptr;
@@ -49,7 +34,7 @@ void LT_Decoder::wczytajPakiety(const std::string& filename){
         sums[i] = nullptr;
         neighbours[i] = nullptr;
         if(i<liczbaPakietow){
-            decodedpakiet[i]=nullptr;
+            decodedpacket[i]=nullptr;
         }
     }
 }
@@ -78,41 +63,131 @@ int LT_Decoder::charToInt(unsigned char* tab, int lenght ){
         return checkSum;
     }
 void LT_Decoder::calcsum(int counter){// funkcja obliczajaca sume kontrolna symbolu kodu jako int
-    int suma=0;// suma kontrolna zakodowanego symbolu
+    checksum=0;// suma kontrolna zakodowanego symbolu
     for(int i=0; i<payloadLength;i++){
-    suma+=inputs[counter][i];
+    checksum+=inputs[counter][i];
     }
-    suma+=int(degres[counter]);
+    checksum+=int(degres[counter]);
     for(int i=0; i<int(degres[counter]);i++){
-    suma+=neighbours[counter][i];
+    checksum+=neighbours[counter][i];
     }
-    if (suma == 0) {
+    if (checksum == 0) {
         checksumSize = 1;
     } else {
         checksumSize = 0;
-        int tempSuma = suma;
+        int tempSuma = checksum;
         while (tempSuma > 0) {
             tempSuma /= 10;
             checksumSize++;
         }
     }
-    checkSum(suma,counter);
+    checkSum(checksum,counter);
 }
-void LT_Decoder::checkSum(int suma, int counter){// funkcja obliczajaca sume kontrolna symbolu kodu jako int
+bool LT_Decoder::checkSum(int suma, int counter){// funkcja obliczajaca sume kontrolna symbolu kodu jako int
     signsToChars(checksumSize, sums[counter]);
     if(suma != charToInt(sums[counter], checksumSize)) {
-        delete[] inputs[counter];
-        delete[] neighbours[counter];
-        delete[] sums[counter];
-        inputs[counter] = nullptr;
-        neighbours[counter]=nullptr;
-        degres[counter] = 0;
-    } else {
+        deleteEncodedSymbol();
+        return false;
+    }
+    else
+        return true
+}
+void LT_Decoder::deleteMem(unsigned char* &tab, int length){
+    if(tab!=nullptr){
+        for(int i=0;i<length;i++)
+            delete[] tab[i];
+        delete[] tab;
+        tab=nullptr;
     }
 }
 
+void LT_Decoder::copymem(int alrernateIndex){
+    int sourceIndex=neighbours[alrernateIndex][0]-1;
+	if(decodedpackets[sourceIndex]==nullptr){
+		decodedpackets[sourceIndex]=new unsigned char[payloadLength];
+		for(int i=0;i<payloadLength;i++){
+			decodedpackets[sourceIndex][i]=inputs[alrernateIndex][i];
+		}
+	}
+}
 
-LT_Decoder::~LT_Decoder()
-{
-    ;
+void LT_Decoder::deleteEncodedSymbol(int alrernateIndex){
+    delete[] inputs[alrernateIndex];
+    delete[] neighbours[alrernateIndex];
+    delete[] sums[alrernateIndex];
+    inputs[alrernateIndex] = nullptr;
+    neighbours[alrernateIndex]=nullptr;
+    degres[alrernateIndex] = 0;
+}
+
+void LT_Decoder::xorNeighbour(int neighbourToCheck, int neighbourPos){
+    if(decodedpackets[neighbourToCheck-1]!=nullptr){
+        for(int i=0; i<payloadLength;i++){
+            inputs[counter][i]^=(unsigned char)decodedpackets[neighbourToCheck-1][i];
+        }
+        neighbours[counter][neighbourPos]=NULL;
+        if(degres[counter]<2)
+            cout<<"stopien mniejszy rowny 1!"<<endl;
+        else
+            degres[counter]--;
+    }
+}
+bool LT_Decoder::procesCurrentSymbol(int alrernateIndex){
+	if(degres[alrernateIndex]==1){
+		int indexOdkodowany=neighbours[alrernateIndex][0];
+		if(decodedpackets[indexOdkodowany-1]==nullptr){
+			copymem(alrernateIndex);
+			numOfDecodedPackets++;
+		}
+		deleteEncodedSymbol(alrernateIndex);
+		for(int i=0;i<counter;i++){
+			if(inputs[i]!=nullptr){
+				for(int j=0;j<startingDegres[i];j++){
+					if(neighbours[i][j]==indexOdkodowany){
+						xorNeighbour(indexOdkodowany,j,i);
+						if(degres[i]==1)procesCurrentSymbol(i);
+					}
+				}
+			}
+		}
+	}
+	return (numOfDecodedPackets==liczbaPakietow);
+}
+bool LT_Decoder::startDecoding(){
+    counter=0;
+    numOfDecodedPackets = 0;
+    while(!file.eof()&&numOfDecodedPackets<liczbaPakietow){
+        loadNextEncodedSymbol(counter);
+        calcsum(counter);
+        if(inputs[counter]!=nullptr){
+            procesCurrentSymbol(counter);
+            counter++;
+        }
+    }
+    return (numOfDecodedPackets == liczbaPakietow);
+}
+bool LT_Decoder::restoreFile(){
+    if(numOfDecodedPackets<liczbaPakietow)return false;
+    std::ofstream out("reconstructed_file",std::ios::binary);
+    for (int i=0;i<liczbaPakietow;i++){
+        if(i==liczbaPakietow-1){
+            out.write((char*)decodedpackets[i],kontrol);
+        }else{
+            out.write((char*)decodedpackets[i],payloadLength);
+        }
+    }
+    out.close();
+    return true;
+}
+
+LT_Decoder::~LT_Decoder(){
+    deleteMem(inputs,liczbaPakietow*300);
+
+    delete[] tmpProcessedPacket;
+    delete[] degres;
+    delete[] startingDegres;
+    deleteMem(neighbours,liczbaPakietow*300);
+    deleteMem(sums,liczbaPakietow*300)
+    deleteMem(decodedpakiet,liczbaPakietow);
+    if(file.is_open()) file.close();
 }

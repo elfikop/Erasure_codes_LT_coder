@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<results version="2">
+    <cppcheck version="2.16.0" />
+    <errors>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;cmath&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;cmath&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="include\LT_Decoder.h" line="11" column="0" />
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="include\LT_Decoder.h" line="12" column="0" />
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;fstream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;fstream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="include\LT_Decoder.h" line="13" column="0" />
+        </error>
+        <error id="syntaxError" severity="error" msg="Code &apos;classLT_Decoder{&apos; is invalid C code." verbose="Code &apos;classLT_Decoder{&apos; is invalid C code.: Use --std, -x or --language to enforce C++. Or --cpp-header-probe to identify C++ headers via the Emacs marker." file0="include/LT_Decoder.h">
+            <location file="include\LT_Decoder.h" line="19" column="1" />
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="src\LT_Decoder.cpp" line="2" column="0" />
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;LT_Decoder::pakietlenght&apos; is not initialized in the constructor." verbose="Member variable &apos;LT_Decoder::pakietlenght&apos; is not initialized in the constructor. Member variables of native types, pointers, or references are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="5" column="13" />
+            <symbol>LT_Decoder::pakietlenght</symbol>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;LT_Decoder::liczbaPakietow&apos; is not initialized in the constructor." verbose="Member variable &apos;LT_Decoder::liczbaPakietow&apos; is not initialized in the constructor. Member variables of native types, pointers, or references are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="5" column="13" />
+            <symbol>LT_Decoder::liczbaPakietow</symbol>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;LT_Decoder::licznika&apos; is not initialized in the constructor." verbose="Member variable &apos;LT_Decoder::licznika&apos; is not initialized in the constructor. Member variables of native types, pointers, or references are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="5" column="13" />
+            <symbol>LT_Decoder::licznika</symbol>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;LT_Decoder::kontrol&apos; is not initialized in the constructor." verbose="Member variable &apos;LT_Decoder::kontrol&apos; is not initialized in the constructor. Member variables of native types, pointers, or references are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="5" column="13" />
+            <symbol>LT_Decoder::kontrol</symbol>
+        </error>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;LT_Decoder::checksumSize&apos; is not initialized in the constructor." verbose="Member variable &apos;LT_Decoder::checksumSize&apos; is not initialized in the constructor. Member variables of native types, pointers, or references are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="5" column="13" />
+            <symbol>LT_Decoder::checksumSize</symbol>
+        </error>
+        <error id="shadowVariable" severity="style" msg="Local variable &apos;i&apos; shadows outer variable" verbose="Local variable &apos;i&apos; shadows outer variable" cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="43" column="13" info="Shadow variable" />
+            <location file="src\LT_Decoder.cpp" line="29" column="9" info="Shadowed declaration" />
+            <symbol>i</symbol>
+        </error>
+        <error id="shadowFunction" severity="style" msg="Local variable &apos;checkSum&apos; shadows outer function" verbose="Local variable &apos;checkSum&apos; shadows outer function" cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="72" column="13" info="Shadow variable" />
+            <location file="include\LT_Decoder.h" line="97" column="11" info="Shadowed declaration" />
+            <symbol>checkSum</symbol>
+        </error>
+        <error id="constParameterPointer" severity="style" msg="Parameter &apos;tab&apos; can be declared as pointer to const" verbose="Parameter &apos;tab&apos; can be declared as pointer to const" cwe="398" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="71" column="42" info="Parameter &apos;tab&apos; can be declared as pointer to const" />
+            <symbol>tab</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;i&apos; is assigned a value that is never used." verbose="Variable &apos;i&apos; is assigned a value that is never used." cwe="563" file0="src/LT_Decoder.cpp">
+            <location file="src\LT_Decoder.cpp" line="29" column="10" />
+            <symbol>i</symbol>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;cassert&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;cassert&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="tests.cpp" line="2" column="0" />
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="tests.cpp" line="3" column="0" />
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;iostream&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="main.cpp" line="1" column="0" />
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &apos;te&apos; is never used." verbose="The function &apos;te&apos; is never used." cwe="561">
+            <location file="main.cpp" line="5" column="0" />
+            <symbol>te</symbol>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &apos;calcsum&apos; is never used." verbose="The function &apos;calcsum&apos; is never used." cwe="561">
+            <location file="src\LT_Decoder.cpp" line="80" column="0" />
+            <symbol>calcsum</symbol>
+        </error>
+        <error id="checkersReport" severity="information" msg="Active checkers: There was critical errors (use --checkers-report=&lt;filename&gt; to see details)" verbose="Active checkers: There was critical errors (use --checkers-report=&lt;filename&gt; to see details)" />
+    </errors>
+</results>
