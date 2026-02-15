@@ -105,6 +105,7 @@ void LT_Decoder::checkSum(int suma, int counter){// funkcja obliczajaca sume kon
         delete[] neighbours[counter];
         delete[] sums[counter];
         inputs[counter] = nullptr;
+        neighbours[counter]=nullptr;
         degres[counter] = 0;
     } else {
     }

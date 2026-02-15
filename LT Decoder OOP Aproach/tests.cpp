@@ -19,10 +19,9 @@ void test_wczytajPakiety(){
     outFile << "3;20;ABCDE";
     outFile.close();
     LT_Decoder decoder;
-    decoder.wcz
     decoder.wczytajPakiety(testFileName);
-    if(decoder.liczbaPakietow=3){
-        if(decoder.kontrol=20){
+    if(decoder.liczbaPakietow==3){
+        if(decoder.kontrol==20){
             std::cout<<"Test wczytajPakiety: +"<<std::endl;
         }
         else
@@ -37,9 +36,10 @@ void test_signsToChars() {
     outFile << "1;123;ABCDE";
     outFile.close();
 
-    LT_Decoder decoder;,
-    decoder.wcz
- ]   decoder.wczytajPakiety(testFileName);
+    LT_Decoder decoder;
+
+
+    decoder.wczytajPakiety(testFileName);
 
     unsigned char* ptr = nullptr;
     int dlugoscDoWczytania = 3;
@@ -64,12 +64,13 @@ void test_loadNextEncodedSymbol(){
     outFile.close();
 
     LT_Decoder decoder;
-    decoder.wczytajPakiety(testFileName); // Otwiera i ustawia kursor za "99;"
+
+    decoder.wczytajPakiety(testFileName);
     decoder.loadNextEncodedSymbol(0);
 
     bool check = true;
     if (decoder.inputs[0][0] != 'X' || decoder.inputs[0][2] != 'Z') check = false;
-    if (decoder.degres[0] != 2) ok = false;
+    if (decoder.degres[0] != 2) check = false;
     if (decoder.neighbours[0][0] != 10 || decoder.neighbours[0][1] != 11) check = false;
 
     if (check) {
