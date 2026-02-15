@@ -19,6 +19,7 @@ void test_wczytajPakiety(){
     outFile << "3;20;ABCDE";
     outFile.close();
     LT_Decoder decoder;
+    decoder.wcz
     decoder.wczytajPakiety(testFileName);
     if(decoder.liczbaPakietow=3){
         if(decoder.kontrol=20){
@@ -36,8 +37,9 @@ void test_signsToChars() {
     outFile << "1;123;ABCDE";
     outFile.close();
 
-    LT_Decoder decoder;
-    decoder.wczytajPakiety(testFileName);
+    LT_Decoder decoder;,
+    decoder.wcz
+ ]   decoder.wczytajPakiety(testFileName);
 
     unsigned char* ptr = nullptr;
     int dlugoscDoWczytania = 3;
@@ -55,10 +57,10 @@ void test_loadNextEncodedSymbol(){
     ofstream outFile(testFileName, ios::binary);
 
     outFile << "1;99;";
-    outFile << "XYZ";       // Payload (payloadLength = 3)
-    outFile << (char)2;     // Stopieñ (degree) = 2
-    outFile << (char)10;    // S¹siad 1
-    outFile << (char)11;    // S¹siad 2
+    outFile << "XYZ";
+    outFile << (char)2;
+    outFile << (char)10;
+    outFile << (char)11;
     outFile.close();
 
     LT_Decoder decoder;
@@ -86,5 +88,6 @@ int main()
     test_signsToChars();
     test_loadNextEncodedSymbol();
     cout << "koniec" << endl;
+
     return 0;
 }
