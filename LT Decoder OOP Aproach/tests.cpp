@@ -466,7 +466,7 @@ int main()
 
 
     LT_Decoder decoder;
-    decoder.wczytajPakiety("example.txt");
+    decoder.wczytajPakiety("..//LT_ENCODER_PROC//example.txt");
 
     std::cout << "Rozpoczynam dekodowanie pliku example.txt..." << std::endl;
 

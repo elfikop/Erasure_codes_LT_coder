@@ -243,23 +243,25 @@ void deleteinputs() {
 int main() {
     int pakietlenght;
     cout << "podaj dlugosc pakietu" << endl;
-    cin >> pakietlenght;
-
+    //cin >> pakietlenght;
+    pakietlenght=3;
     wczytajpakiety(pakietlenght);
 
     cout << "podaj prawdopodobienstwo nie powodzenia sie dekodowania w procesie LT" << endl;
     cout << "Gdy wypisze tablice prawdopodobienstw, nacisnij znak z klawiatury a pozniej enter aby kontynuowac" << endl;
     cin >> D;
+    D=0.9;
 
     cout << "podaj stala C wieksza od zera, najlepiej rowna 1: ";
-    cin >> c;
+    //cin >> c;
+    c=0.01;
     cout << endl;
 
     tablicasoliton(liczbaPakietow);
     tablica_robust_soliton(liczbaPakietow, calculateR(liczbaPakietow));
 
     float znakkk;
-    cin >> znakkk;
+    //cin >> znakkk;
 
     ofstream plik("example.txt", ios::out | ios::binary | ios::trunc);
     plik<<liczbaPakietow<<";";

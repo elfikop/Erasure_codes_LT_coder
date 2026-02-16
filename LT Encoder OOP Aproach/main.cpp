@@ -7,7 +7,7 @@ int main() {
     std::cout << "Dlugosc pakietu: "; std::cin >> pLen;
     std::cout << "Prawd. porazki: "; std::cin >> failure;
 
-    LT_Encoder encoder(pLen, failure);
+    LT_Encoder encoder(pLen-1, failure);
     encoder.wczytajPakiety("test.txt");
     encoder.generujSymbole(100, "example.txt");
 
