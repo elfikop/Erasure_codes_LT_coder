@@ -25,6 +25,16 @@ class LT_Decoder
         * sets the member variables of the class to 0
         */
         LT_Decoder();
+
+        /** \brief Opens the encoded file, sets the LT_Encoder::liczbaPakietow atribute
+        *
+        * based on the first 1 byte packet written in the file and LT_Encoder.kontrol based on the third packet.
+        * initializes memory dynamically with liczbaPakietow size for all array members in the class.
+        * \param filename is the name of the encoded file to be processed
+        *
+        */
+        void wczytajPakiety(const std::string& filename);
+
         /** \brief Deletes an object of the LT Decoder
         * deletes the dynamically allocated memory used to store encoded symbols data if there are any
         */
@@ -34,6 +44,8 @@ class LT_Decoder
         friend void test_signsToChars();
         friend void test_wczytajPakiety();
         friend void test_loadNextEncodedSymbol();
+        friend void test_calcsum();
+        friend void test_checkSum();
         bool startDecoding();
         bool restoreFile();
 
@@ -66,14 +78,6 @@ class LT_Decoder
     unsigned char** neighbours;
     unsigned char** sums;
     unsigned char** decodedpackets;
-    /** \brief Opens the encoded file, sets the LT_Encoder::liczbaPakietow atribute
-    *
-    * based on the first 1 byte packet written in the file and LT_Encoder.kontrol based on the third packet.
-    * initializes memory dynamically with liczbaPakietow size for all array members in the class.
-    * \param filename is the name of the encoded file to be processed
-    *
-    */
-    void wczytajPakiety(const std::string& filename);
 
     /** \brief Reconstructs the int value encoded in the array rows with the following rules:
     * array values: "'2' '2' '4' '6'" equals int value: 2246
@@ -158,8 +162,9 @@ class LT_Decoder
      * @brief Deletes the given array of pointers memory
      * \param tab is the pointer to the source array
      * \param length is the size of the source array
+
      */
-     void deleteMem(unsigned char* &tab, int length);
+     void deleteMem(unsigned char** &tab,int length);
 
 
 };
