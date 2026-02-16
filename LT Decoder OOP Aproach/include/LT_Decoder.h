@@ -46,6 +46,12 @@ class LT_Decoder
         friend void test_loadNextEncodedSymbol();
         friend void test_calcsum();
         friend void test_checkSum();
+        friend void test_xorNeighbour();
+        friend void test_copymem();
+        friend void test_deleteEncodedSymbol();
+        friend void test_procesCurrentSymbol();
+        friend void run_advanced_process_test(int scenario);
+
         bool startDecoding();
         bool restoreFile();
 

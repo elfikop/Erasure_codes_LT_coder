@@ -1,6 +1,7 @@
 #include "LT_Decoder.h"
 #include <iostream>
 #include <string>
+#include <queue>
 
 LT_Decoder::LT_Decoder()
 	:pakietlength(0),liczbaPakietow(0),kontrol(0),checksumSize(0),checksum(0),
@@ -19,6 +20,7 @@ void LT_Decoder::wczytajPakiety(const std::string& filename){
 
 	std::getline(file,temp,';');
 	kontrol=std::stoi(temp);
+//	payloadLength = 4;
 	file.seekg(-1, std::ios::cur);
     counter=0;
 	int total=liczbaPakietow*300;
@@ -55,8 +57,8 @@ void LT_Decoder::signsToChars(int ln,unsigned char* &pointer){
 
 int LT_Decoder::charToInt(unsigned char* tab,int lenght){
 	int checkSum=0,r=1;
-	for(int i=lenght-1;i>=0;i--){
-		checkSum+=((tab[i]-48)*r);
+	for(int i = 0; i < lenght; i++){
+		checkSum+=((tab[i])*r);
 		r*=10;
 	}
 	return checkSum;
@@ -86,7 +88,16 @@ bool LT_Decoder::checkSum(int suma,int counter){
 }
 
 void LT_Decoder::copymem(int alrernateIndex){
-	int sourceIndex=neighbours[alrernateIndex][0]-1;
+	int indexOdkodowany=0;
+	for(int k=0;k<startingDegres[alrernateIndex];k++){
+		if(neighbours[alrernateIndex][k]!=0){
+			indexOdkodowany=neighbours[alrernateIndex][k];
+			break;
+		}
+	}
+	if(indexOdkodowany==0) return;
+
+	int sourceIndex=indexOdkodowany-1;
 	if(decodedpackets[sourceIndex]==nullptr){
 		decodedpackets[sourceIndex]=new unsigned char[payloadLength];
 		for(int i=0;i<payloadLength;i++)decodedpackets[sourceIndex][i]=inputs[alrernateIndex][i];
@@ -101,56 +112,101 @@ void LT_Decoder::deleteEncodedSymbol(int alrernateIndex){
 	degres[alrernateIndex]=0;
 }
 
-void LT_Decoder::xorNeighbour(int neighbourToCheck,int neighbourPos,int targetIndex){
-	if(decodedpackets[neighbourToCheck-1]!=nullptr){
-		for(int i=0;i<payloadLength;i++)inputs[targetIndex][i]^=decodedpackets[neighbourToCheck-1][i];
-		if(degres[targetIndex]>0)degres[targetIndex]--;
-	}
+void LT_Decoder::xorNeighbour(int neighbourToCheck, int neighbourPos, int targetIndex) {
+    if (neighbours[targetIndex] == nullptr) return;
+    if (neighbours[targetIndex][neighbourPos] == 0) return;
+
+    if (decodedpackets[neighbourToCheck - 1] != nullptr) {
+        for (int i = 0; i < payloadLength; i++)
+            inputs[targetIndex][i] ^= decodedpackets[neighbourToCheck - 1][i];
+
+        if (degres[targetIndex] > 0) {
+            degres[targetIndex]--;
+            neighbours[targetIndex][neighbourPos] = 0;
+        }
+    }
 }
 
-bool LT_Decoder::procesCurrentSymbol(int alrernateIndex){
-	if(degres[alrernateIndex]==1){
-            std::cout<<"odkodowano indeks nr: "<<alrernateIndex<<std::endl;
-		int indexOdkodowany=neighbours[alrernateIndex][0];
-		if(decodedpackets[indexOdkodowany-1]==nullptr)copymem(alrernateIndex);
-		deleteEncodedSymbol(alrernateIndex);
-		for(int i=0;i<counter;i++){
-			if(inputs[i]!=nullptr){
-				for(int j=0;j<startingDegres[i];j++){
-					if(neighbours[i][j]==indexOdkodowany){
-						xorNeighbour(indexOdkodowany,j,i);
-						if(degres[i]==1)procesCurrentSymbol(i);
-					}
-				}
-			}
-		}
-	}
-	return (numOfDecodedPackets==liczbaPakietow);
+bool LT_Decoder::procesCurrentSymbol(int alternateIndex) {
+    std::queue<int> pakietyDoOdkodowania;
+
+    if(degres[alternateIndex]==1) {
+        pakietyDoOdkodowania.push(alternateIndex);
+    }
+
+    while(!pakietyDoOdkodowania.empty()) {
+        int currentIdx = pakietyDoOdkodowania.front();
+        pakietyDoOdkodowania.pop();
+
+        if(inputs[currentIdx]==nullptr) continue;
+        if(degres[currentIdx]!=1) continue;
+
+        int indexOdkodowany = 0;
+        for(int k=0; k<startingDegres[currentIdx]; k++) {
+            if(neighbours[currentIdx][k]!=0) {
+                indexOdkodowany = neighbours[currentIdx][k];
+                break;
+            }
+        }
+
+        if(indexOdkodowany==0) continue;
+
+        if(decodedpackets[indexOdkodowany-1]==nullptr) {
+            copymem(currentIdx);
+        }
+        deleteEncodedSymbol(currentIdx);
+        for(int i=0; i<counter; i++) {
+            if(inputs[i]!=nullptr && neighbours[i]!=nullptr) {
+                for(int j=0; j<startingDegres[i]; j++) {
+                    if(neighbours[i][j]==indexOdkodowany) {
+                        xorNeighbour(indexOdkodowany, j, i);
+                        if(degres[i]==1) {
+                            pakietyDoOdkodowania.push(i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return (numOfDecodedPackets==liczbaPakietow);
 }
 
 bool LT_Decoder::startDecoding(){
+    int totalCounter=0;
+    int badsums=0;
 	counter=0;
+	std::cout<<"aktualnie przetworzony: "<<std::endl;
 	numOfDecodedPackets=0;
 	while(!file.eof()&&numOfDecodedPackets<liczbaPakietow){
-        do{
-            loadNextEncodedSymbol(counter);
-            std::cout<<"zaladowano symbol nr: "<<counter<<std::endl;
-            calcsum(counter);
-            counter++;
-            }
-            while(checkSum(checksum,counter)==false);
-		if(inputs[counter]!=nullptr){
+		loadNextEncodedSymbol(counter);
+        std::cout<<"aktualnie zaladowany stopien: "<<int(degres[counter]);
+		calcsum(counter);
+		if(checkSum(checksum,counter)){
 			procesCurrentSymbol(counter);
 			counter++;
+			totalCounter++;
+			std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" Zaladowany w komorce "<<counter-1<<" l. zdekodowanych: "<<numOfDecodedPackets<<std::endl;
+		}
+        else {
+        badsums++;
+        totalCounter++;
+        std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" bledna suma"<<std::endl;
+        std::string junk;
+        std::getline(file, junk, ';');
+        std::cout<<"==="<<std::endl;
+        std::cout<<junk<<" wielkosc sumy "<<checksumSize<<" suma "<<checksum<<std::endl;
+        std::cout<<"==="<<std::endl;
+        file.seekg(-1, std::ios::cur);
 		}
 	}
+	std::cout<<"l. blednych sum"<<badsums<<std::endl;
 	return (numOfDecodedPackets==liczbaPakietow);
 }
 
 
 bool LT_Decoder::restoreFile(){
 	if(numOfDecodedPackets<liczbaPakietow)return false;
-	std::ofstream out("reconstructed_file",std::ios::binary);
+	std::ofstream out("reconstructed_file.txt",std::ios::binary);
 	for(int i=0;i<liczbaPakietow;i++){
 		if(i==liczbaPakietow-1)out.write((char*)decodedpackets[i],kontrol);
 		else out.write((char*)decodedpackets[i],payloadLength);

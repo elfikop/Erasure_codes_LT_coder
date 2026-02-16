@@ -2,17 +2,18 @@
 1770977395 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\main.cpp
 	<iostream>
 
-1771239930 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\src\lt_decoder.cpp
+1771250980 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\src\lt_decoder.cpp
 	"LT_Decoder.h"
 	<iostream>
 	<string>
+	<queue>
 
-1771231540 c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\include\lt_decoder.h
+1771245214 c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\include\lt_decoder.h
 	<cmath>
 	<string>
 	<fstream>
 
-1771235392 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\tests.cpp
+1771247733 source:c:\users\seweryn prto\documents\github\erasure_codes_lt_coder\lt decoder oop aproach\tests.cpp
 	"LT_Decoder.h"
 	<cassert>
 	<iostream>
