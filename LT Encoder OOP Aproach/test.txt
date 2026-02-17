@@ -1,3 +1,0 @@
-To jest testowy plik tekstowy, który, podczas pracy programu zostaje zakodowany na pakiety będące wynikiem operacji xor x liczby pakietow wejsciowych,
- gdzie x to jest liczba fragmentow tego tekstu w osobnych komorkach tabeli pamieci, przykladowo dla dlugosci pakietu =3 liczba pakietow tego tekstu to np.132
- pakietów gdzie jeden pakiet wejsciowy wyglada np: "tak", "pak", "iet", " we"itd

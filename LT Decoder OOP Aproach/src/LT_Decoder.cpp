@@ -110,6 +110,8 @@ void LT_Decoder::deleteEncodedSymbol(int alrernateIndex){
 	delete[] neighbours[alrernateIndex];neighbours[alrernateIndex]=nullptr;
 	delete[] sums[alrernateIndex];sums[alrernateIndex]=nullptr;
 	degres[alrernateIndex]=0;
+	checksum=0;
+	checksumSize=0;
 }
 
 void LT_Decoder::xorNeighbour(int neighbourToCheck, int neighbourPos, int targetIndex) {
@@ -172,34 +174,34 @@ bool LT_Decoder::procesCurrentSymbol(int alternateIndex) {
 }
 
 bool LT_Decoder::startDecoding(){
-    int totalCounter=0;
+    totalCounter=0;
     int badsums=0;
 	counter=0;
-	std::cout<<"aktualnie przetworzony: "<<std::endl;
+	//std::cout<<"aktualnie przetworzony: "<<std::endl;
 	numOfDecodedPackets=0;
 	while(!file.eof()&&numOfDecodedPackets<liczbaPakietow){
 		loadNextEncodedSymbol(counter);
-        std::cout<<"aktualnie zaladowany stopien: "<<int(degres[counter]);
+        //std::cout<<"aktualnie zaladowany stopien: "<<int(degres[counter]);
 		calcsum(counter);
 		if(checkSum(checksum,counter)){
 			procesCurrentSymbol(counter);
 			counter++;
 			totalCounter++;
-			std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" Zaladowany w komorce "<<counter-1<<" l. zdekodowanych: "<<numOfDecodedPackets<<std::endl;
+			//std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" Zaladowany w komorce "<<counter-1<<" l. zdekodowanych: "<<numOfDecodedPackets<<std::endl;
 		}
         else {
         badsums++;
         totalCounter++;
-        std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" bledna suma"<<std::endl;
+        //std::cout<<" liczba otrzymanych s. k: "<<totalCounter<<" bledna suma"<<std::endl;
         std::string junk;
         std::getline(file, junk, ';');
-        std::cout<<"==="<<std::endl;
-        std::cout<<junk<<" wielkosc sumy "<<checksumSize<<" suma "<<checksum<<std::endl;
-        std::cout<<"==="<<std::endl;
+        //std::cout<<"==="<<std::endl;
+        //std::cout<<junk<<" wielkosc sumy "<<checksumSize<<" suma "<<checksum<<std::endl;
+        //std::cout<<"==="<<std::endl;
         file.seekg(-1, std::ios::cur);
 		}
 	}
-	std::cout<<"l. blednych sum"<<badsums<<std::endl;
+	//std::cout<<"l. blednych sum"<<badsums<<std::endl;
 	return (numOfDecodedPackets==liczbaPakietow);
 }
 

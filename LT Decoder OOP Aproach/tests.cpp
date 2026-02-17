@@ -463,24 +463,59 @@ int main()
     for(int i=1;i<=10;i++)
         run_advanced_process_test(i);
     cout << "koniec" << endl;
+    string name="..//LT_ENCODER_PROC//example//expected.txt";
+    ifstream plik(name);
+    long long liczba;
+    if (plik >> liczba);
+    cout<<liczba<<endl;
 
-
-    LT_Decoder decoder;
-    decoder.wczytajPakiety("..//LT_ENCODER_PROC//example.txt");
-
-    std::cout << "Rozpoczynam dekodowanie pliku example.txt..." << std::endl;
-
-    if(decoder.startDecoding()) {
-        std::cout << "Sukces: Wszystkie pakiety zostaly odkodowane!" << std::endl;
-
-        if(decoder.restoreFile()) {
-            std::cout << "Plik zostal zapisany jako 'reconstructed_file'" << std::endl;
-        } else {
-            std::cout << "Blad podczas zapisu pliku wynikowego." << std::endl;
+    float failures=0;
+    //LT_ENCODER_PROC
+    long long stats=0;
+    long long stats_counter=0;
+    for(int i=1;i<=10000;i++){
+        LT_Decoder decoder;
+        string name="..//LT_ENCODER_PROC//example//"+to_string(i)+".txt";
+        decoder.wczytajPakiety(name);
+        if(i%1000==0){
+            std::cout<<" odkodowano: "<<i<<" plikow"<<std::endl;
+            cout <<endl<< "counter" << stats << endl;
+            cout << "amount of successes in the lt-process: " << i-failures << endl;
+            cout << "average amount of encoding symbols needed to decode the message: " << stats/stats_counter << endl;
+            cout << "prob of success: " << 1-failures/i<<"%" << endl;
+            cout<<endl;
+            cout << "failures: " << failures << endl;
+            cout << "prob of fail: " << failures/i<<"%" << endl;
         }
-    } else {
-        std::cout << "Nie udalo sie odkodowac pliku." << std::endl;
-    }
+        //std::cout << "Rozpoczynam dekodowanie pliku example.txt..." << std::endl;
 
+        if(decoder.startDecoding()) {
+            if(decoder.totalCounter<=liczba){
+                //std::cout << decoder.totalCounter << std::endl;
+                stats+=decoder.totalCounter;
+                stats_counter++;
+            }
+            else
+                failures++;
+
+
+            //std::cout << "Sukces: Wszystkie pakiety zostaly odkodowane!" << std::endl;
+
+            if(decoder.restoreFile()) {
+                //std::cout << "Plik zostal zapisany jako 'reconstructed_file'" << std::endl;
+            } else {
+                std::cout << "Blad podczas zapisu pliku wynikowego." << std::endl;
+            }
+        } else {
+            std::cout << "Nie udalo sie odkodowac pliku." << std::endl;
+        }
+    }
+    cout <<endl<< "counter" << stats << endl;
+    cout << "amount of successes in the lt-process: " << 10000-failures << endl;
+    cout << "average amount of encoding symbols needed to decode the message: " << stats/stats_counter << endl;
+    cout << "prob of success: " << 1-failures/10000<<"%" << endl;
+    cout<<endl;
+    cout << "failures: " << failures << endl;
+    cout << "prob of fail: " << failures/10000<<"%" << endl;
     return 0;
 }
