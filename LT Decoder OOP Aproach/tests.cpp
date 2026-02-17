@@ -490,7 +490,7 @@ int main()
         //std::cout << "Rozpoczynam dekodowanie pliku example.txt..." << std::endl;
 
         if(decoder.startDecoding()) {
-            if(decoder.totalCounter<=liczba){
+            if(decoder.totalCounter<liczba){
                 //std::cout << decoder.totalCounter << std::endl;
                 stats+=decoder.totalCounter;
                 stats_counter++;

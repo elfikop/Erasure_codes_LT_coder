@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int licznikstopnia1=0;
+long long licznikstopnia1=0;
 int licznikcalosciowy=0;
 
 double R_val;
@@ -68,6 +68,8 @@ void xorowanie(int a,int pakietlenght){
 }
 
 double calculateR(int inp){
+    cout<<"l. symboli wejsciowych "<<inp<<" oraz pierwiastek "<<sqrt(inp)<<endl;
+    cout<<"l. pierwiastek inp/d_prob "<<log(inp/D_prob)<<endl;
     return(c_const*log(inp/D_prob)*sqrt(inp));
 }
 
@@ -86,9 +88,11 @@ void tablica_robust_soliton(int inp,double R){
     double rho[MAX_K+1]={0.0};
     rho[1]=R/(inp);
     if(1<=((inp/R)-1)){
-        for(int i=2;i<((inp/R)-1);i++){
-            if((i==(inp/R))&&(i!=1))
-                rho[i]=(R*log(R/D_prob));
+        for(int i=2;i<=(inp/R);i++){
+            double a=int(inp/R);
+            cout<<a<<endl;
+            if((i==int(inp/R))&&(i!=1))
+                rho[i]=(R*log(R/D_prob))/inp;
             else
                 rho[i]=R/(i*inp);
         }
@@ -119,7 +123,7 @@ void degree(int pakietlenght,int seed){
     bool aktywacja=true;
     srand(seed);
     int table=randrobustsoliton(liczbaPakietow,seed);
-    if(table==1)licznikstopnia1+=1;
+    licznikstopnia1+=table;
     licznikcalosciowy+=1;
     degre=new unsigned char[table+1];
     degre[0]=(unsigned char)table;
@@ -222,7 +226,10 @@ int calculateNumOfEncoding(){
     double result=k+(c_const*(sqrt(k)*ln_squared));
     return static_cast<int>(ceil(result));
 }
-
+double calculateAverageDegree()
+{   double a=(c_const*log(liczbaPakietow/D_prob));
+    return a;
+}
 int main(){
     int pakietlenght=3;
     wczytajpakiety(pakietlenght);
@@ -235,7 +242,9 @@ int main(){
         plik_expected<<calculateNumOfEncoding();
         plik_expected.close();
     }
-    cout<<calculateNumOfEncoding();
+    cout<<"average degree "<<calculateAverageDegree()<<endl;
+    cout<<"num of encoding "<<calculateNumOfEncoding()<<endl;
+    cout<<"R "<< calculateR(liczbaPakietow)<<endl;
     string a;
     cin>>a;
     tablicasoliton(liczbaPakietow);
@@ -262,7 +271,8 @@ int main(){
     }
     deleteinputs();
     cout<<"Zakonczono generowanie. Statystyki: "<<endl;
-    cout<<"Liczba pakietow stopnia 1: "<<licznikstopnia1<<endl;
+    cout<<"Liczba stopni: "<<licznikstopnia1<<endl;
+    cout<<"sredni stopien: "<<licznikstopnia1/((liczbaPakietow*5)*10000)<<endl;
     cout<<"Liczba operacji: "<<licznikcalosciowy<<endl;
     return 0;
 }
