@@ -20,7 +20,7 @@ class LT_Decoder
 {
     public:
 
-        int totalCounter;
+        long long totalCounter;
 
         /** \brief Creates an object of the LT Decoder
         * sets the pointer values of the class members to nullptr.

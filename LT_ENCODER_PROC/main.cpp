@@ -122,7 +122,9 @@ int randrobustsoliton(int inp,unsigned int seed){
 void degree(int pakietlenght,int seed){
     bool aktywacja=true;
     srand(seed);
+
     int table=randrobustsoliton(liczbaPakietow,seed);
+    //int table=1;
     licznikstopnia1+=table;
     licznikcalosciowy+=1;
     degre=new unsigned char[table+1];
@@ -250,13 +252,13 @@ int main(){
     tablicasoliton(liczbaPakietow);
     tablica_robust_soliton(liczbaPakietow,calculateR(liczbaPakietow));
 
-    for(int k=1;k<=10000;k++){
+    for(int k=1;k<=1000;k++){
         string name="example/"+to_string(k)+".txt";
         ofstream plik(name,ios::out|ios::binary|ios::trunc);
         if(!plik)continue;
         plik<<liczbaPakietow<<";";
         plik<<kontrol<<";";
-        for(int m=0;m<(liczbaPakietow*5);m++){
+        for(int m=0;m<(liczbaPakietow*200);m++){
             degree(pakietlenght,(int)time(0)+k+m);
             combine(pakietlenght);
             calcsum(pakietlenght);
@@ -272,7 +274,7 @@ int main(){
     deleteinputs();
     cout<<"Zakonczono generowanie. Statystyki: "<<endl;
     cout<<"Liczba stopni: "<<licznikstopnia1<<endl;
-    cout<<"sredni stopien: "<<licznikstopnia1/((liczbaPakietow*5)*10000)<<endl;
+    cout<<"sredni stopien: "<<float(licznikstopnia1)/float(((liczbaPakietow*300)*1000))<<endl;
     cout<<"Liczba operacji: "<<licznikcalosciowy<<endl;
     return 0;
 }

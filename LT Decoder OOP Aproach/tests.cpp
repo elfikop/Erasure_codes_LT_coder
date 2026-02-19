@@ -473,11 +473,11 @@ int main()
     //LT_ENCODER_PROC
     long long stats=0;
     long long stats_counter=0;
-    for(int i=1;i<=10000;i++){
+    for(int i=1;i<=1000;i++){
         LT_Decoder decoder;
         string name="..//LT_ENCODER_PROC//example//"+to_string(i)+".txt";
         decoder.wczytajPakiety(name);
-        if(i%1000==0){
+        if(i%100==0){
             std::cout<<" odkodowano: "<<i<<" plikow"<<std::endl;
             cout <<endl<< "counter" << stats << endl;
             cout << "amount of successes in the lt-process: " << i-failures << endl;
@@ -485,22 +485,27 @@ int main()
             cout << "prob of success: " << 1-failures/i<<"%" << endl;
             cout<<endl;
             cout << "failures: " << failures << endl;
+
             cout << "prob of fail: " << failures/i<<"%" << endl;
+
         }
+
         //std::cout << "Rozpoczynam dekodowanie pliku example.txt..." << std::endl;
 
         if(decoder.startDecoding()) {
-            if(decoder.totalCounter<liczba){
+            if(true){
                 //std::cout << decoder.totalCounter << std::endl;
-                stats+=decoder.totalCounter;
-                stats_counter++;
+                //stats+=decoder.totalCounter;
+                //cout<<decoder.totalCounter<<endl;
+                //stats_counter++;
             }
             else
                 failures++;
 
 
             //std::cout << "Sukces: Wszystkie pakiety zostaly odkodowane!" << std::endl;
-
+              stats+=decoder.totalCounter;
+            stats_counter++;
             if(decoder.restoreFile()) {
                 //std::cout << "Plik zostal zapisany jako 'reconstructed_file'" << std::endl;
             } else {
@@ -511,11 +516,11 @@ int main()
         }
     }
     cout <<endl<< "counter" << stats << endl;
-    cout << "amount of successes in the lt-process: " << 10000-failures << endl;
+    cout << "amount of successes in the lt-process: " << 1000-failures << endl;
     cout << "average amount of encoding symbols needed to decode the message: " << stats/stats_counter << endl;
-    cout << "prob of success: " << 1-failures/10000<<"%" << endl;
+    cout << "prob of success: " << 1-failures/1000<<"%" << endl;
     cout<<endl;
     cout << "failures: " << failures << endl;
-    cout << "prob of fail: " << failures/10000<<"%" << endl;
+    cout << "prob of fail: " << failures/1000<<"%" << endl;
     return 0;
 }
